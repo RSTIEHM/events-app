@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-export default function Home({data}) {
+export default function Home({ data }) {
   return (
     <div>
       <Head>
@@ -16,11 +16,11 @@ export default function Home({data}) {
           <a href="/about-us">About Us</a>
         </nav>
       </header>
-      <main>
+      <main className='main-content'>
         {data.map(evt => {
-          return(
+          return (
             <a key={evt.id} href={`/events/${evt.id}`}>
-              <Image alt={evt.title} src={evt.image} width={300} height={150}/>
+              <Image alt={evt.title} src={evt.image} width={300} height={150} />
               <h2>{evt.title}</h2>
               <p>{evt.description}</p>
             </a>
@@ -34,12 +34,12 @@ export default function Home({data}) {
 
 export async function getServerSideProps() {
 
-  const {events_categories} = await import('/data/data.json')
+  const { events_categories } = await import('/data/data.json')
   // const res = await fetch('/data/data.json')
   // const data = await res.json()
 
   return {
-    props:{
+    props: {
       data: events_categories
     }
   }

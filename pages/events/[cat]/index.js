@@ -1,5 +1,5 @@
 const EventsCategoryPage = () => {
-    return(
+    return (
         <div>
             <h1>EVENTS INDEX</h1>
             <div>
