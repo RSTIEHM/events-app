@@ -1,7 +1,7 @@
 import Head from 'next/head'
+import Image from 'next/image'
 
-
-export default function Home() {
+export default function Home({data}) {
   return (
     <div>
       <Head>
@@ -17,24 +17,30 @@ export default function Home() {
         </nav>
       </header>
       <main>
-        <a href="">
-          <img />
-          <h2>Events In London</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </a>
-        <a href="">
-          <img />
-          <h2>Events In San Francisco</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </a>
-        <a href="">
-          <img />
-          <h2>Events In New York</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </a>
+        {data.map(evt => {
+          return(
+            <a key={evt.id} href={`/events/${evt.id}`}>
+              <Image alt={evt.title} src={evt.image} width={300} height={150}/>
+              <h2>{evt.title}</h2>
+              <p>{evt.description}</p>
+            </a>
+          )
+        })}
       </main>
-
-
     </div>
   )
+}
+
+
+export async function getServerSideProps() {
+
+  const {events_categories} = await import('/data/data.json')
+  // const res = await fetch('/data/data.json')
+  // const data = await res.json()
+
+  return {
+    props:{
+      data: events_categories
+    }
+  }
 }
