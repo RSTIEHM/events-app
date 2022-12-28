@@ -19,18 +19,16 @@ const EventsCategoryPage = ({ data, pageName }) => {
             </Link>
           )
         })}
-
       </div>
-
     </div>
   )
 }
 
 export default EventsCategoryPage;
 
+
 export async function getStaticPaths() {
   const { events_categories } = await import('/data/data.json')
-
   const allPaths = events_categories.map(ev => {
     return {
       params: {
@@ -38,7 +36,6 @@ export async function getStaticPaths() {
       }
     }
   })
-
   return {
     paths: allPaths,
     fallback: false
