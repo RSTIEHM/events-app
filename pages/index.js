@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-
+import Link from 'next/link'
 export default function Home({ data }) {
   return (
     <div>
@@ -11,19 +11,27 @@ export default function Home({ data }) {
       </Head>
       <header>
         <nav>
-          <a href="/">Home</a>
-          <a href="/events">Events</a>
-          <a href="/about-us">About Us</a>
+          <Link href="/" passHref>
+            <a>Home</a>
+          </Link>
+          <Link href="/events" passHref>
+            <a>Events</a>
+          </Link>
+          <Link href="/about-us" passHref>
+            <a>About Us</a>
+          </Link>
         </nav>
       </header>
       <main className='main-content'>
         {data.map(evt => {
           return (
-            <a key={evt.id} href={`/events/${evt.id}`}>
-              <Image alt={evt.title} src={evt.image} width={300} height={150} />
-              <h2>{evt.title}</h2>
-              <p>{evt.description}</p>
-            </a>
+            <Link key={evt.id} href={`/events/${evt.id}`} passHref>
+              <a>
+                <Image alt={evt.title} src={evt.image} width={300} height={150} />
+                <h2>{evt.title}</h2>
+                <p>{evt.description}</p>
+              </a>
+            </Link>
           )
         })}
       </main>

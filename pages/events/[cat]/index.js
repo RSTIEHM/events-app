@@ -1,15 +1,25 @@
-const EventsCategoryPage = ({ data }) => {
-  console.log(data, "IN APP")
+import Image from 'next/image'
+import Link from 'next/link'
+
+const EventsCategoryPage = ({ data, pageName }) => {
+  let title = data[0].city.toUpperCase();
+
   return (
     <div>
-      <h1>EVENTS INDEX</h1>
+      <h1>Events In {pageName.toUpperCase()}</h1>
       <div>
-        <a href="/events/event1">Event 1</a>
-        <a href="/events/event2">Event 2</a>
-        <a href="/events/event3">Event 3</a>
-        <a href="/events/event4">Event 4</a>
-        <a href="/events/event5">Event 5</a>
-        <a href="/events/event6">Event 6</a>
+        {data.map(ev => {
+          return (
+            <Link key={ev.id} href={`/events/${ev.city}/${ev.id}`} passHref>
+              <a>
+                <Image width={300} height={300} alt={ev.title} src={ev.image} />
+                <h2>{ev.title}</h2>
+                <p>{ev.description}</p>
+              </a>
+            </Link>
+          )
+        })}
+
       </div>
 
     </div>
@@ -42,7 +52,8 @@ export async function getStaticProps(ctx) {
   const data = allEvents.filter(ev => ev.city.toLowerCase() === id.toLowerCase())
   return {
     props: {
-      data
+      data,
+      pageName: id
     }
   }
 }
