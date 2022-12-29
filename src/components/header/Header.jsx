@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 const Header = () => {
   return (
-    <header>
-      <nav>
+    <header className='header'>
+      <nav className='nav'>
         <Link href="/" passHref>
           <a>Home</a>
         </Link>
